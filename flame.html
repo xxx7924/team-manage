@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <!-- <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="tmtmi-english">
+    <title>밸런스 팀짜기</title>
+
+    <!-- 웹 폰트 -->
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
+    <style>
+        #header {
+            height: 80px;
+            padding: 10px 10px;
+            background: #2e303e;
+            color: #fff;
+            text-align:center;
+            font-size: 12px; 
+        }
+        #main {
+            color: #434b4f;
+        }
+
+        #main .selected_list {
+            margin-top: 50px;
+        }
+        #main .total-list {
+            margin-top: 50px;
+        }
+
+        #main .red_list {
+            margin-top: 50px;
+        }
+
+        #main .grean_list {
+            margin-top: 50px;
+        }
+
+        div h2 {
+            padding: 0px 0px 0px 10px;
+        }
+
+        div p {
+            padding: 0px 0px 0px 10px;
+        }
+        
+        ul {
+            list-style: none;
+            padding: 0px;
+            margin: 0px;
+            text-align:left;
+        }
+
+        ul li {
+            margin: 10px 10px 10px 10px;
+            padding: 15px 10px 10px 10px;
+            height: 40px;
+            line-height: 40px;
+            font-size: 24px; 
+            border: 1px solid gray;
+            border-radius: 5px;
+
+            position: relative;
+        }
+
+        ul li span {
+            margin: 0px 10px 0px 0px;
+        }
+
+        ul li span.level-area {
+            right: 20px;
+            background-color: #090A0B;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            height: 30px;
+            line-height: 30px;
+            width: 60px;
+            display: inline-block;
+            text-align: center;
+            right: 12px;
+            top: 17px;
+            position: absolute;
+        }
+
+        ul li span.level-1 {color: #FFB74D;}
+        ul li span.level-2 {color: #FFD54F;}
+        ul li span.level-3 {color: #AED581;}
+        ul li span.level-4 {color: #4FC3F7;}
+        ul li span.level-5 {color: #4DB6AC;}
+        ul li span.level-6 {color: #9575CD;}
+        ul li span.level-7 {color: #BA68C8;}
+        ul li span.level-8 {color: #F06292;}
+        ul li span.level-9 {color: #E57373;}
+        ul li span.level-10 {color: #EF5350;}
+
+        ul li p {
+            margin: 0px 0px 0px 50px;
+            height: 40px;
+            
+        }
+
+        #selected_members li {
+            background: #3d5b95;
+            color: #fff;
+
+        }
+
+        #red_members li {
+            background: #EF4040;
+            color: #fff;
+        }
+
+        #grean_members li {
+            background: #65B741;
+            color: #fff;
+        }
+
+        #score1, #score2 {
+            padding: 0px 0px 0px 10px;
+        }
+
+        .button_area1 {
+            
+            margin: 30px 0px 0px 0px;
+        }
+
+        .button_area1 div {
+            
+            margin: 10px 10px 10px 10px;
+            padding: 20px 10px 10px 10px;
+            height: 40px;
+            background: #090A0B;
+            color: white;
+            text-align: center;
+            border-radius: 5px;
+            font-size: 18px; 
+        }
+
+        .profile-image {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            /* object-fit: cover;*/
+            margin-right: 16px;
+            left: 12px;
+            top: 12px;
+            position: absolute;
+        }
+
+
+
+
+
+/* 모달 */
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 10;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.8);
+  padding-top: 100px;
+}
+
+.modal-content {
+  margin: auto;
+  display: block;
+  max-width: 80%;
+  max-height: 80%;
+  object-fit: contain;
+  animation: zoomIn 0.6s;
+}
+
+.caption {
+  margin: auto;
+  display: block;
+  width: 80%;
+  text-align: center;
+  color: #ccc;
+  padding: 10px 0;
+}
+
+.close {
+  position: absolute;
+  top: 30px; right: 35px;
+  color: #fff;
+  font-size: 40px; font-weight: bold;
+  cursor: pointer;
+}
+
+@keyframes zoomIn {
+  from { transform: scale(0.5); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+
+
+
+        /* 컨테이너 */
+        .container {width: 1200px; margin: 0 auto;}
+
+        #footer {height: 130px; background: #2e303e; color: white; text-align: center; padding: 20px 0px 5px 0px; margin: 50px 0px 0px 0px;}
+
+        /* mediaquery */
+        /* 화면 너비 0~1220px */
+        @media (max-width: 1220px){
+            .container {width: 100%;}
+        }
+
+      </style>
+
+
+
+</head>
+<body>
+    
+	<header id="header">
+		<div class="container">
+			<div class="header">
+            	<h1>불꽃FC</h1>
+            </div>
+		</div>
+	</header>
+
+    <main id="main">
+        <div class="container">
+            <div class="main">
+            	
+                <div class="selected_list">
+                    <h2>참여멤버<span id="member_cnt"> 0명</span></h2>
+                    <p>참석한 멤버를 선택해주세요.</p>
+                    <ul id="selected_members">
+
+                    </ul>
+                </div>
+
+                <div class="button_area1">
+                    <div id="start1">팀편성 하기</div>
+                    <div id="start2">다시 하기</div>
+                </div>
+                
+                <div class="total-list">
+                    <h2>전체멤버</h2>
+                    <ul id="total-members">
+                        <!-- <li id="83김김김" data-age="83" data-name="김김김" data-level="6"><img src="/img/이정원.jpg" class="profile-image modal-trigger"><p><span>81</span>이정원<span class="level-area level-10">level 10</span></p></li>
+                        <li id="82김이이" data-age="82" data-name="김이이" data-level="5"><img src="/img/박태광.jpg" class="profile-image modal-trigger"><p><span>81</span>박태광<span class="level-area level-9">level 9</span></p></li>
+                        <li id="85김차차" data-age="85" data-name="김차차" data-level="4"><img src="/img/손민호.jpg" class="profile-image modal-trigger"><p><span>81</span>손민호<span class="level-area level-8">level 8</span></p></li>
+                        <li id="83김오오" data-age="83" data-name="김오오" data-level="3"><img src="/img/임병근.jpg" class="profile-image modal-trigger"><p><span>81</span>임병근<span class="level-area level-7">level 7</span></p></li>
+                        <li id="83김구구" data-age="83" data-name="김구구" data-level="1"><img src="/img/No_img.jpg" class="profile-image modal-trigger"><p><span>81</span>임병순<span class="level-area level-6">level 6</span></p></li>
+                        <li id="83김구구" data-age="83" data-name="김구구" data-level="1"><img src="/img/임병훈.jpg" class="profile-image modal-trigger"><p><span>81</span>임병순<span class="level-area level-5">level 5</span></p></li>
+                        <li id="83김구구" data-age="83" data-name="김구구" data-level="1"><img src="/img/임병훈.jpg" class="profile-image modal-trigger"><p><span>81</span>임병순<span class="level-area level-4">level 4</span></p></li>
+                        <li id="83김구구" data-age="83" data-name="김구구" data-level="1"><img src="/img/임병훈.jpg" class="profile-image modal-trigger"><p><span>81</span>임병순<span class="level-area level-3">level 3</span></p></li>
+                        <li id="83김구구" data-age="83" data-name="김구구" data-level="1"><img src="/img/임병훈.jpg" class="profile-image modal-trigger"><p><span>81</span>임병순<span class="level-area level-2">level 2</span></p></li>
+                        <li id="83김구구" data-age="83" data-name="김구구" data-level="1"><img src="/img/임병훈.jpg" class="profile-image modal-trigger"><p><span>81</span>임병순<span class="level-area level-1">level 1</span></p></li> -->
+                    </ul>
+                </div>
+
+                <div class="red_list" style="display: none;">
+                    <h2>주황팀</h2>
+                    <div id="score1"></div>
+                    <ul id="red_members">
+
+                    </ul>
+                </div>
+
+                <div class="grean_list" style="display: none;">
+                    <h2>녹색팀</h2>
+                    <div id="score2"></div>
+                    <ul id="grean_members">
+
+                    </ul>
+                </div>
+          
+            </div>
+        </div>
+    </main>
+    
+    <footer id="footer">
+        <h2>밸런스 팀짜기 © 2023</h2>
+    </footer>
+
+    <!-- 모달 구조 -->
+    <div id="imageModal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="modalImg">
+        <div id="caption"></div>
+    </div>
+
+
+
+
+
+    
+    <!-- JavaScript Libraries -->
+    <script src="jquery.min_1.12.4.js"></script>
+    <script src="modernizr-custom.js"></script>
+
+
+    <script type="text/javascript">
+    	
+
+        
+
+
+
+
+
+        function member(age, name, power) {
+            this.age = age;
+            this.name = name;
+            this.power = power;
+        }
+
+        // 플레이어 배열 생성
+        var members = [
+            //년생,이름,능력치
+
+            //10점
+            new member("86", "장진영", "10"),
+            new member("86", "김준경", "10"),
+            new member("84", "강남일", "10"),
+            //9점
+            new member("85", "정민구", "9"),
+            //8점
+            new member("78", "이용환", "8"),
+            new member("82", "이재성", "8"),
+            new member("88", "임병훈", "8"),
+            new member("86", "최성권", "8"),
+            // new member("86", "장민수", "8"),
+            //7점
+            new member("85", "양성윤", "7"),
+            new member("86", "이진웅", "7"),
+            new member("82", "윤정근", "7"),
+            new member("84", "임병근", "7"),
+            //6점
+            new member("83", "고성주", "6"),
+            new member("83", "김승범", "6"),
+            new member("82", "정창원", "6"),
+            new member("85", "신유준", "6"),
+            new member("82", "박태광", "6"),
+            new member("93", "천민규", "6"),
+            //5점
+            new member("81", "차승태", "5"),
+            new member("82", "한기택", "5"),
+            new member("74", "김유진", "5"),
+            new member("83", "김형석", "5"),
+            //4점
+            new member("85", "이정원", "4"),
+            new member("80", "최광순", "4"),
+            new member("87", "양시욱", "4"),
+            //new member("82", "전지웅", "4"),
+            new member("85", "김현호", "4"),
+            //3점
+            new member("92", "정재웅", "3"),
+            new member("94", "김기원", "3"),
+            new member("92", "김요섭", "3"),
+            new member("79", "정명근", "3"),
+            new member("85", "손민호", "3"),
+            new member("83", "박승호", "3"),
+            //2점
+            new member("83", "박준식", "2"),
+            //1점
+            new member("85", "주현수", "1"),
+
+        ];
+
+
+
+
+        var selecedMemberCnt = 0;
+
+        var players = [];
+        // 팀 배열 생성
+        var teamA = [];
+        var teamB = [];
+
+        // 각 팀의 능력치 합계 계산
+        var teamAPowerSum = 0;
+        var teamBPowerSum = 0;
+		
+		$(document).ready(function(){
+			
+
+            initMember();
+
+
+
+			$("#total-members li p").on("click", function () {
+				var id = $(this).parent().attr("id");
+                var data_age = $(this).parent().attr("data-age");
+                var data_name = $(this).parent().attr("data-name");
+                var data_level = $(this).parent().attr("data-level");
+                
+                console.log("id : "+id);
+                console.log("data_age : "+data_age);
+                console.log("data_name : "+data_name);
+                console.log("data_level : "+data_level);
+
+                $('#'+id).css('display', 'none');
+
+                var id2 = id + "-1";
+
+                //var html = '<li id="'+id2+'" data-age="'+data_age+'" data-name="'+data_name+'" data-level="'+data_level+'"><span>'+data_age+'</span>'+data_name+'</li>';
+                var html = '<li id="'+id2+'" data-age="'+data_age+'" data-name="'+data_name+'" data-level="'+data_level+'"><img src="/img/'+data_name+'.jpg" class="profile-image modal-trigger"><p><span>'+data_age+'</span>'+data_name+'<span class="level-area level-'+data_level+'">Lv.'+data_level+'</span></p></li>';
+
+
+                
+                
+                $("#selected_members").append(html);
+
+                selecedMemberCnt++;
+                $("#member_cnt").text(" "+selecedMemberCnt+"명");
+
+                //이미지 없을 경우 디폴트 이미지 나오도록
+                $('img').on('error', function() {
+                    $(this).off('error')           // 이벤트 중복 방지
+                        .attr('src', '/img/No_img.jpg');
+                });
+
+                setModalView();
+
+			});
+
+            $("#selected_members").on("click", "p", function () {
+				var id = $(this).parent().attr("id");
+                var data_age = $(this).parent().attr("data-age");
+                var data_name = $(this).parent().attr("data-name");
+                var data_level = $(this).parent().attr("data-level");
+                
+                console.log("id : "+id);
+                console.log("data_age : "+data_age);
+                console.log("data_name : "+data_name);
+                console.log("data_level : "+data_level);
+
+                var targetId = id.split("-");
+
+                $('#'+targetId[0]).css('display', 'block');
+
+                $(this).parent().remove();
+
+                selecedMemberCnt--;
+                $("#member_cnt").text(" "+selecedMemberCnt+"명");
+
+			});
+
+            $("#start1").on("click", function () {
+				
+                if(selecedMemberCnt == 0){
+                    alert("멤버를 선택해 주세요.");
+                    return false;
+                }
+
+                $("#selected_members li").each(function( index, element ) {
+                    var data_age = $(this).attr("data-age");
+                    var data_name = $(this).attr("data-name");
+                    var data_level = $(this).attr("data-level");
+
+                    var player = {};
+                    player.age = data_age;
+                    player.name = data_name;
+                    player.level = Number(data_level);
+
+                    players.push(player);
+
+                });
+
+                shuffleArray(players);
+
+                console.log(JSON.stringify(players, null, 2));
+
+                // 플레이어를 능력치를 기준으로 내림차순 정렬
+                players.sort(function(a, b) {
+                    return b.level - a.level;
+                });
+
+                console.log(JSON.stringify(players, null, 2));
+
+                // 플레이어 할당 시작
+                assignPlayersToTeams(0);
+
+                //양팀 멤버수 체크 후 재배치
+                balancePlayersToTeams();
+
+
+
+                // 결과 출력
+                console.log("Team A:", teamA);
+                console.log("Team B:", teamB);
+                console.log("능력치 차이:", Math.abs(teamAPowerSum - teamBPowerSum));
+
+
+                $('.total-list').css('display', 'none');
+                $('.selected_list').css('display', 'none');
+
+                $('.red_list').css('display', 'block');
+                $('.grean_list').css('display', 'block');
+
+                $('#start1').css('display', 'none');
+
+                teamA.sort(function(a, b) {
+                    return b.level - a.level;
+                });
+
+                teamB.sort(function(a, b) {
+                    return b.level - a.level;
+                });
+
+                for (var i = 0; i < teamA.length; i++){
+
+                    var html = '<li><img src="/img/'+teamA[i].name+'.jpg" class="profile-image modal-trigger"><p><span>'+teamA[i].age+'</span>'+teamA[i].name+'<span class="level-area level-'+teamA[i].level+'">Lv.'+teamA[i].level+'</span></p></li>';
+                    $("#red_members").append(html);
+
+                }
+
+                for (var i = 0; i < teamB.length; i++){
+
+                    var html = '<li><img src="/img/'+teamB[i].name+'.jpg" class="profile-image modal-trigger"><p><span>'+teamB[i].age+'</span>'+teamB[i].name+'<span class="level-area level-'+teamB[i].level+'">Lv.'+teamB[i].level+'</span></p></li>';
+                    $("#grean_members").append(html);
+
+                }
+
+                //주황팀 능력치 합
+                $('#score1').text("능력치 합 : "+teamAPowerSum);
+
+                //녹색팀 능력치 합
+                $('#score2').text("능력치 합 : "+teamBPowerSum);
+
+
+
+                //이미지 없을 경우 디폴트 이미지 나오도록
+                $('img').on('error', function() {
+                    $(this).off('error')           // 이벤트 중복 방지
+                        .attr('src', '/img/No_img.jpg');
+                });
+
+                setModalView();
+
+			});
+
+            $("#start2").on("click", function () {
+
+                location.reload();
+
+            });
+
+
+            $('img').on('error', function() {
+                $(this).off('error')           // 이벤트 중복 방지
+                    .attr('src', '/img/No_img.jpg');
+            });
+
+
+            setModalView();
+            
+
+
+
+		});
+
+
+        // 팀에 플레이어 할당하는 함수
+        function assignPlayersToTeams(index) {
+            if (index === players.length) {
+                return;
+            }
+
+            // 능력치 합이 작은 팀에 플레이어 할당
+            if (teamAPowerSum <= teamBPowerSum) {
+                
+                console.log("teamA.push"+JSON.stringify(players[index], null, 2));
+                teamA.push(players[index]);
+                teamAPowerSum += players[index].level;
+            } else {
+                console.log("teamB.push"+JSON.stringify(players[index], null, 2));
+                teamB.push(players[index]);
+                teamBPowerSum += players[index].level;
+            }
+
+            // 다음 플레이어 할당을 위해 재귀 호출
+            assignPlayersToTeams(index + 1);
+        }
+
+        //두팀의 멤버수가 1개 이상 안나도록 재배치하는 함수
+        function balancePlayersToTeams() {
+            
+            var cnt = teamA.length - teamB.length;
+            console.log("cnt:", cnt);
+            
+            if (cnt === -1 || cnt === 0 || cnt === 1) {
+                return;
+            }
+
+            if(teamA.length > teamB.length){
+                //A팀 가장 레벨 낮은 멤버를 B팀에 추가
+                var lastPlayer = teamA.pop();
+                teamB.push(lastPlayer);
+            }else{
+                //B팀 가장 레벨 낮은 멤버를 A팀에 추가
+                var lastPlayer = teamB.pop();
+                teamA.push(lastPlayer);
+            }
+
+            // 다음 플레이어 할당을 위해 재귀 호출
+            balancePlayersToTeams();
+        }
+
+        function initMember() {
+            
+            members.sort(function(a, b) {
+                return a.age - b.age;
+            });
+            
+            for (var i = 0; i < members.length; i++){
+
+                var id = members[i].age+members[i].name;
+                var age = members[i].age;
+                var name = members[i].name;
+                var power = members[i].power;
+
+                //var html = '<li id="'+id+'" data-age="'+age+'" data-name="'+name+'" data-level="'+power+'"><span>'+age+'</span>'+name+'</li>';
+                var html = '<li id="'+id+'" data-age="'+age+'" data-name="'+name+'" data-level="'+power+'"><img src="/img/'+name+'.jpg" class="profile-image modal-trigger"><p><span>'+age+'</span>'+name+'<span class="level-area level-'+power+'">Lv.'+power+'</span></p></li>';
+
+                $("#total-members").append(html);
+
+            }
+        }
+
+        //랜덤 섞기
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        //이미지 클릭 시 모달 띄우기
+        function setModalView() {
+            // 모달 관련 요소들
+            const modal = document.getElementById("imageModal");
+            const modalImg = document.getElementById("modalImg");
+            const caption = document.getElementById("caption");
+            const closeBtn = modal.querySelector(".close");
+
+            // 모든 프로필 이미지에 클릭 이벤트 추가
+            document.querySelectorAll(".modal-trigger").forEach(img => {
+            img.style.cursor = "pointer";
+            img.addEventListener("click", function() {
+                modal.style.display = "block";
+                modalImg.src = this.src;
+                caption.textContent = this.alt || "";
+            });
+            });
+
+            // 닫기 버튼 클릭하면 모달 닫기
+            closeBtn.onclick = () => modal.style.display = "none";
+
+            // 모달 외부 클릭해도 닫기
+            modal.addEventListener("click", e => {
+            if (e.target === modal) modal.style.display = "none";
+            });
+        }
+		
+    </script>
+
+</body>
+</html>

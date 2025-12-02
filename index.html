@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <!-- <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="tmtmi-english">
+    <title>밸런스 팀짜기</title>
+
+    <!-- 웹 폰트 -->
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
+    <style>
+        #header {
+            height: 80px;
+            padding: 15px 10px 0px 10px;
+            background: #2e303e;
+            color: #fff;
+            text-align:center;
+            font-size: 12px; 
+        }
+        #main {
+            color: #434b4f;
+        }
+
+        p {
+            margin: 20px 0px 20px 20px;
+        }
+
+        .team div {
+            
+            margin: 10px 10px 10px 10px;
+            padding: 20px 10px 10px 10px;
+            height: 40px;
+            background: #65B741;
+            color: white;
+            text-align: center;
+            border-radius: 5px;
+            font-size: 21px; 
+            font-weight: 500;
+        }
+
+        a {  
+            text-align: center;  
+            text-decoration: none; /* 링크의 밑줄 제거 */  
+            color: inherit; /* 링크의 색상 제거 */
+            display:block;
+        }
+
+        /* 컨테이너 */
+        .container {width: 1200px; margin: 0 auto;}
+
+        #footer {height: 130px; background: #2e303e; color: white; text-align: center; padding: 20px 0px 5px 0px; margin: 50px 0px 0px 0px;}
+
+        /* mediaquery */
+        /* 화면 너비 0~1220px */
+        @media (max-width: 1220px){
+            .container {width: 100%;}
+        }
+
+      </style>
+
+
+
+</head>
+<body>
+    
+	<header id="header">
+		<div class="container">
+			<div class="header">
+            	<h1>당신의 가장 찬란한 순간</h1>
+            </div>
+		</div>
+	</header>
+
+    <main id="main">
+        <div class="container">
+            <div class="main">
+            	<p>팀을 선택해 주세요.</p>
+                <div class="team">
+                    <div id="flame"><a href="/flame.html">불꽃 FC</a></div>
+                    <div id="supersunday"><a href="/supersunday.html">슈퍼썬데이 FC</a></div>
+                </div>
+          
+            </div>
+        </div>
+    </main>
+    
+    <footer id="footer">
+        <h2>밸런스 팀짜기 © 2023</h2>
+    </footer>
+
+
+
+
+
+
+    
+    <!-- JavaScript Libraries -->
+    <script src="jquery.min_1.12.4.js"></script>
+    <script src="modernizr-custom.js"></script>
+
+</body>
+</html>
